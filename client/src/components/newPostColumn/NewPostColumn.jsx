@@ -1,6 +1,7 @@
 import { UilImagePlus, UilTimes } from '@iconscout/react-unicons';
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadImage } from '../../actions/uploadAction';
 import avatarImage from '../../images/profile-photos/toy-6.jpg';
 import ImageVector from '../../images/svg/image-video-vector-2.svg';
 import './NewPostColumn.css';
@@ -9,6 +10,7 @@ const NewPostColumn = () => {
   const {user} = useSelector((state)=>state.authReducer.authData)
   const [image, setImage] = useState(null);
   const desc = useRef();
+  const dispatch = useDispatch();
   
 
   const onImageChange = (event) => {
@@ -36,7 +38,16 @@ const NewPostColumn = () => {
       newPost.image = filename;
 
       console.log(newPost);
+
+      try {
+        dispatch(uploadImage(data));
+      } catch (error) {
+        console.log(error);
+      }
+      
     }
+
+    // dispatch(uploadPost(newPost))
   }
 
 
