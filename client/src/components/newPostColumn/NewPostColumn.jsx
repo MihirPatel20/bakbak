@@ -1,7 +1,7 @@
 import { UilImagePlus, UilTimes } from '@iconscout/react-unicons';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImage } from '../../actions/uploadAction';
+import { uploadImage, uploadPost } from '../../actions/uploadAction';
 import avatarImage from '../../images/profile-photos/toy-6.jpg';
 import ImageVector from '../../images/svg/image-video-vector-2.svg';
 import './NewPostColumn.css';
@@ -14,7 +14,6 @@ const NewPostColumn = () => {
   
 
   const onImageChange = (event) => {
-    console.log(event.target.files);
 
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
@@ -37,8 +36,6 @@ const NewPostColumn = () => {
       data.append("file", image)
       newPost.image = filename;
 
-      console.log(newPost);
-
       try {
         dispatch(uploadImage(data));
       } catch (error) {
@@ -47,7 +44,7 @@ const NewPostColumn = () => {
       
     }
 
-    // dispatch(uploadPost(newPost))
+    dispatch(uploadPost(newPost))
   }
 
 
