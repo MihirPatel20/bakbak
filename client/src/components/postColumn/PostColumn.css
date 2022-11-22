@@ -1,0 +1,8 @@
+.PostColumn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding-bottom: 4.2rem;
+}

@@ -1,0 +1,96 @@
+
+.Post {
+  display: flex;
+  flex-direction: column;
+}
+
+.Post > .ProfileCard {
+  padding: 16px 20px;
+}
+
+.info > h5 {
+  color: var(--dark-labels);
+}
+
+.response {
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px 20px;
+  gap: 8px;
+}
+
+.caption > p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.caption {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+
+.post-image{
+  width: inherit;
+  margin: 0 20px;
+  border-radius: 2%;
+}
+
+.reactions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.reactions > svg {
+  font-size: 30px;
+}
+
+.caption > span {
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+@media (max-width: 620px) {
+  .Post {
+    border-radius: 10px;
+  }
+  .Post > .ProfileCard {
+    padding: 16px 12px;
+  }
+  .info > h4 {
+    font-size: 14px;
+  }
+  .info > h5 {
+    font-size: 12px;
+  }
+  .profile-picture {
+    width: 36px;
+    height: 36px;
+  }
+  .post-image {
+    margin: 0 8px;
+  }
+
+  .response {
+    padding: 12px;
+  }
+  .caption > p {
+    font-size: 14px;
+  }
+  .caption > span {
+    font-size: 14px;
+  }
+  .response {
+    gap: 2px;
+  }
+  .reactions > svg {
+    font-size: 24px;
+  }
+}

@@ -1,0 +1,140 @@
+.NavigationColumn {
+  position: relative;
+}
+
+.sticky-area {
+  position: fixed;
+  display: grid;
+  width: 18rem;
+  gap: 20px;
+}
+
+/* My profile  */
+.my-profile > .ProfileCard {
+  padding-left: 1.5rem;
+}
+
+
+/* NAvigation page links  */
+.nav-items {
+  display: grid;
+  padding: 10px 0;
+}
+
+.nav-items > div {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 1.1rem;
+  gap: 0.5rem;
+  font-weight: 400;
+}
+
+.nav-items > div > svg {
+  font-size: 1.4rem;
+  width: 4rem;
+}
+
+.nav-items > .active > svg {
+  /* font-size: 1.9rem; */
+}
+
+.nav-items > .active {
+  padding: 1.25rem 1rem;
+  /* font-size: 20px; */
+  /* font-weight: 600; */
+
+  color: var(--active);
+  background-color: var(--section-bg);
+}
+
+.nav-items > .profile {
+  display: none;
+}
+
+
+
+
+
+/* smaller windows screens */
+@media (max-width: 1360px) {
+  .sticky-area {
+    width: auto;
+  }
+  .my-profile > .ProfileCard {
+    padding: 1rem;
+  }
+  .my-profile > .ProfileCard > .info {
+    display: none;
+  }
+  .nav-items > div {
+    justify-content: center;
+  }
+  .nav-items > div > svg {
+    width: auto;
+  }
+  .nav-items > div > div {
+    display: none;
+  }
+}
+
+
+/* Mobile view */
+@media (max-width: 620px) {
+  .NavigationColumn {
+    position: fixed;
+    z-index: 100;
+  }
+  .sticky-area {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .my-profile {
+    display: none;
+  }
+  .nav-items {
+    border: 1px solid var(--section-bg);
+    border-top: 1px solid var(--active);
+    border-radius: 0;
+    grid-template-columns: repeat(5, auto);
+    padding: 0;
+  }
+  .nav-items > div {
+    padding: 10px;
+  }
+  .nav-items > .active {
+    padding: 10px;
+  }
+  .nav-items > div > svg {
+    font-size: 1.5rem;
+  }
+  .nav-items > .profile {
+    display: flex;
+  }
+  .nav-items > .profile > .profile-picture {
+    width: 30px;
+    height: 30px;
+  }
+  .nav-items > .files{
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+/*
+.feed {grid-area: feed;}
+.friends {grid-area: friends;}
+.events { grid-area: events;}
+.watch-videos {grid-area: watch-videos;}
+.photos { grid-area: photos;}
+.files {grid-area: files;}
+
+"feed" "files" "friends" "events" "watch-videos" "photos"
+"feed files friends events watch-videos photos" 
+*/

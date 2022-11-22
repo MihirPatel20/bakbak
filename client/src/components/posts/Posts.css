@@ -1,0 +1,12 @@
+.Posts {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 620px) {
+  .Posts {
+    gap: 16px;
+  }
+}
