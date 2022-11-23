@@ -1,9 +1,12 @@
 import React from 'react';
 import { FiHeart, FiMessageCircle, FiSend } from "react-icons/fi";
+import { useSelector } from 'react-redux';
 import './Post.css';
 
 
 const Post = ({ data }) => {
+  const { user } = useSelector((state) => state.authReducer.authData)
+  
   return (
     <div className="Post card">
 
@@ -16,7 +19,7 @@ const Post = ({ data }) => {
         </div>
       </div>
 
-      <img className='post-image' src={data.postImage} alt="" />
+      <img className='post-image' src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""} alt="" />
 
 
 

@@ -15,6 +15,9 @@ import UserRoute from "./Routes/UserRoute.js";
 const app = express();
 app.use(cors())
 
+//To serve images for public
+app.use(express.static('public'))
+app.use('/images', express.static("images"))
 
 //MiddleWare
 app.use(bodyParser.json({ limit: '30mb', extended: true }))

@@ -1,4 +1,4 @@
-import { UilImagePlus, UilTimes } from '@iconscout/react-unicons';
+import { UilTimes } from '@iconscout/react-unicons';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage, uploadPost } from '../../actions/uploadAction';
@@ -8,6 +8,7 @@ import './NewPostColumn.css';
 
 const NewPostColumn = () => {
   const {user} = useSelector((state)=>state.authReducer.authData)
+  const loading = useSelector((state) => state.postReducer.uploading)
   const [image, setImage] = useState(null);
   const desc = useRef();
   const dispatch = useDispatch();
@@ -45,6 +46,13 @@ const NewPostColumn = () => {
     }
 
     dispatch(uploadPost(newPost))
+
+    reset()
+  }
+
+  const reset = () => {
+    setImage(null);
+    desc.current.value = "";
   }
 
 
@@ -61,9 +69,9 @@ const NewPostColumn = () => {
           <div className="share-section flex">
             <img className='profile-picture' src={avatarImage} alt="" />
             <input ref={desc} required type="text" placeholder="What's on your mind!" name="desc" id="" />
-            <div className="image-logo">
-              <UilImagePlus onClick={handleSubmit} />
-            </div>
+            <button className="button share-btn" onClick={handleSubmit}>
+              {loading ? "Uploading..." : "Share"}
+            </button>
           </div>
         </div>
 
