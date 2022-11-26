@@ -9,7 +9,7 @@ const Avatar = () => {
   return (
     <div className="Avatar">
       <img className='profile-picture'
-        src={user.profilePicture ? serverPublic + user.profilePicture : serverPublic + "defaultProfile.jpg"}
+        src={serverPublic + user.profilePicture}
         alt=""
       />
     </div>

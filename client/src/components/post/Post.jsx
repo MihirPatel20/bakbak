@@ -17,15 +17,15 @@ const Post = ({ data }) => {
     setLiked(prev => !prev);
     liked ? setlikes(prev => prev - 1) : setlikes(prev => prev + 1)
 
-    console.log(data);
   }
+  console.log(data);
 
   return (
     <div className="Post card">
 
       {/* user details */}
       <div className="ProfileCard flex">
-        <img className='profile-picture' src={user.profilePicture ? serverPublic + user.profilePicture : serverPublic + `../profile-pic/toy-${12}.jpg`} alt="" />
+        <img className='profile-picture' src={serverPublic + user.profilePicture} alt="" />
         <div className="info flex">
           <h4>{data.name}</h4>
           <h5>{data.time}</h5>

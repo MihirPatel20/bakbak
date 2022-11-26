@@ -52,7 +52,7 @@ const NavigationColumn = () => {
             </div>
           </Link>
 
-          <Link className='link' to="/home">
+          <Link className='link' to="/home/discover">
             <div className='discover'>
               <FiFileMinus />
               Discover
@@ -70,6 +70,9 @@ const NavigationColumn = () => {
           </div>
 
         </div>
+
+
+        {/* <FollowersCard /> */}
 
       </div>
     </div>
