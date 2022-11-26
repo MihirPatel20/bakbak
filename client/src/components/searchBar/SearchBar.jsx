@@ -1,13 +1,18 @@
 import { UilChat, UilSearch } from '@iconscout/react-unicons';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../../actions/AuthAction';
 
 import './SearchBar.css';
 
 const SearchBar = () => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOut())
+  }
   return (
     <div className="SearchBar card">
 
@@ -25,15 +30,17 @@ const SearchBar = () => {
         </div>
       </div>
 
-      <div className='profile-div '>
-        <Link to={`/profile/${user._id}`} >
-          <img className='profile-picture'
-            src={user.profilePicture ? serverPublic + user.profilePicture : serverPublic + "defaultProfile.jpg"}
-            alt=""
+      <div className='profile-div'>
+        {/* <Link to={`/profile/${user._id}`} > */}
+          <img className='profile-picture' alt=""
+            src={serverPublic + user.profilePicture}
+            onClick={handleLogOut}
           />
-        </Link>
+        {/* </Link> */}
       </div>
 
+
+      {/* For smaller screens */}
       <div className='chat-icon'>
         <UilChat />
       </div>
