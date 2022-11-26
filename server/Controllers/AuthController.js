@@ -7,7 +7,8 @@ export const registerUser = async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(req.body.password, salt)
-  req.body.password = hashedPass
+  req.body.password = hashedPass;
+  // req.body.profilePicture = `public/profile-pic/toy-${12}.jpg`;
 
   const newUser = new UserModel(req.body)
   const { username } = req.body;

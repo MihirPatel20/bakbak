@@ -22,7 +22,7 @@ function App() {
         <Route path='/home' element={user ? <Home /> : <Navigate to="../auth" />} >
           <Route path='' element={user ? <Posts /> : <Navigate to="../auth"/>} />
           <Route path='newpost' element={user ? <NewPostColumn /> : <Navigate to="../auth" />} />
-          <Route path='profile' element={user ? <ProfileColumn /> : <Navigate to="../auth" />} />
+          <Route path='profile/:id' element={user ? <ProfileColumn /> : <Navigate to="../auth" />} />
         </Route>
       </Routes>
     </div>

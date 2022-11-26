@@ -1,10 +1,13 @@
-import { UilChat, UilSearch } from '@iconscout/react-unicons'
-import React from 'react'
-import avatarImage from '../../images/profile-photos/toy-6.jpg'
+import { UilChat, UilSearch } from '@iconscout/react-unicons';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
-import './SearchBar.css'
+import './SearchBar.css';
 
 const SearchBar = () => {
+  const { user } = useSelector((state) => state.authReducer.authData)
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <div className="SearchBar card">
 
@@ -23,11 +26,16 @@ const SearchBar = () => {
       </div>
 
       <div className='profile-div '>
-        <img className='profile-picture' src={avatarImage} alt="" />
+        <Link to={`/profile/${user._id}`} >
+          <img className='profile-picture'
+            src={user.profilePicture ? serverPublic + user.profilePicture : serverPublic + "defaultProfile.jpg"}
+            alt=""
+          />
+        </Link>
       </div>
 
       <div className='chat-icon'>
-       <UilChat />
+        <UilChat />
       </div>
 
     </div>

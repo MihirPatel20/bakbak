@@ -6,8 +6,8 @@ import './Posts.css';
 
 const Posts = () => {
   const { user } = useSelector((state) => state.authReducer.authData)
-  const { posts, loading } = useSelector((state) => state.postReducer)
-  const dispatch = useDispatch();
+  let { posts, loading } = useSelector((state) => state.postReducer)
+    const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getTimelinePosts(user._id))

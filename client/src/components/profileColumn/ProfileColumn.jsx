@@ -5,6 +5,7 @@ const ProfileColumn = () => {
   return (
     <div className="my-profile card">
       <ProfileCard />
+      Profile Column
     </div>
   )
 }

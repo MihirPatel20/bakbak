@@ -1,55 +1,72 @@
 import React from 'react';
 import { FiFileMinus, FiGrid, FiImage, FiPlusSquare, FiUsers } from "react-icons/fi";
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import avatarImage from '../../images/profile-photos/toy-6.jpg';
 
 import ProfileCard from '../profileCard/ProfileCard';
 import './NavigationColumn.css';
 
 const NavigationColumn = () => {
+  const { user } = useSelector((state) => state.authReducer.authData)
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+
   return (
     <div className="NavigationColumn">
       <div className="sticky-area">
 
         <div className="my-profile card">
-          <ProfileCard />
+          <Link className='link' to={`/home/profile/${user._id}`} >
+            <ProfileCard />
+          </ Link>
         </div>
 
 
         {/* Page Navigation icons and action names */}
         <div className="nav-items card">
 
-          <div className='feed active'>
-            <FiGrid />
-            <div>
-              <Link to="/home">Feed</Link>
+          <Link className='link' to="/home">
+            <div className='feed active'>
+              <FiGrid />
+              Feed
             </div>
-          </div>
+          </Link>
 
-          <div className='friends'>
-            <FiUsers />
-            <div>Friends</div>
-          </div>
+          <Link className='link' to="/home/friends">
+            <div className='friends'>
+              <FiUsers />
+              Friends
+            </div>
+          </Link>
 
-          <div className='events'>
-            <FiPlusSquare />
-            
+          <Link className='link' to="/home/newpost">
+            <div className='events'>
+              <FiPlusSquare />
+              New Post
+            </div>
+          </Link>
 
-            <div><Link to="/home/newpost">New Post</Link></div>
-          </div>
+          <Link className='link' to="/home">
+            <div className='photos'>
+              <FiImage />
+              Photos
+            </div>
+          </Link>
 
-          <div className='photos'>
-            <FiImage />
-            <div>Photos</div>
-          </div>
-
-          <div className='files'>
-            <FiFileMinus />
-            <div>Files</div>
-          </div>
+          <Link className='link' to="/home">
+            <div className='discover'>
+              <FiFileMinus />
+              Discover
+            </div>
+          </Link>
 
           <div className='profile'>
-            <img className='profile-picture' src={avatarImage} alt="" />
+            <Link to="/home/profile/:id">
+              <img
+                className='profile-picture'
+                src={user.profilePicture ? serverPublic + user.profilePicture : serverPublic + "defaultProfile.jpg"}
+                alt=""
+              />
+            </Link>
           </div>
 
         </div>
