@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiHeart, FiMessageCircle, FiSend } from "react-icons/fi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { likePost } from '../../api/PostRequests.js';
+import { getUser } from '../../api/UserRequest.js';
+import FormatDate from '../../Module/FormatDate.js';
 import './Post.css';
 
 
@@ -11,48 +13,71 @@ const Post = ({ data }) => {
 
   const [liked, setLiked] = useState(data.likes.includes(user._id));
   const [likes, setlikes] = useState(data.likes.length)
+  const [person, setPerson] = useState(null)
+
+  const dispatch = useDispatch();
+
+  const postOwner = data.userId;
+
+  //Formating the date to desired output
+  var createdTime = FormatDate(new Date(data.createdAt));
 
   const handleLike = () => {
     likePost(data._id, user._id)
     setLiked(prev => !prev);
     liked ? setlikes(prev => prev - 1) : setlikes(prev => prev + 1)
-
   }
-  console.log(data);
 
-  return (
-    <div className="Post card">
+  const fetchPerson = async () => {
+    if (postOwner) {
+      const { data } = await getUser(postOwner);
+      setPerson(data)
+    }
+  }
 
-      {/* user details */}
-      <div className="ProfileCard flex">
-        <img className='profile-picture' src={serverPublic + user.profilePicture} alt="" />
-        <div className="info flex">
-          <h4>{data.name}</h4>
-          <h5>{data.time}</h5>
+  useEffect(() => {
+    fetchPerson();
+  }, [])
+
+
+
+  if (person) {
+
+    return (
+      <div className="Post card">
+
+        {/* user details */}
+        <div className="ProfileCard flex">
+          <img className='profile-picture' src={serverPublic + person.profilePicture} alt="" />
+          <div className="info flex">
+            <h4>{person.firstname} {person.lastname}</h4>
+            <h5>{createdTime}</h5>
+          </div>
         </div>
+
+        <img className='post-image' src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""} alt="" />
+
+
+
+        {/* Your reactions */}
+        <div className="response">
+          <div className="reactions">
+            <FiHeart style={liked ? { fill: "red", color: "red" } : {}} onClick={handleLike} />
+            <FiMessageCircle />
+            <FiSend />
+
+          </div>
+          <div className="caption">
+            <p>{likes} likes</p>
+            <span><b>{data.username}</b></span>
+            <span> {data.desc}</span>
+          </div>
+        </div>
+
       </div>
+    )
+  }
 
-      <img className='post-image' src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""} alt="" />
-
-
-
-      {/* Your reactions */}
-      <div className="response">
-        <div className="reactions">
-          <FiHeart style={liked ? { fill: "red", color: "red" } : {}} onClick={handleLike} />
-          <FiMessageCircle />
-          <FiSend />
-
-        </div>
-        <div className="caption">
-          <p>{likes} likes</p>
-          <span><b>{data.username}</b></span>
-          <span> {data.desc}</span>
-        </div>
-      </div>
-
-    </div>
-  )
 }
 
 export default Post
