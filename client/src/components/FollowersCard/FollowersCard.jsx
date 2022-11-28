@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getAllUsers } from '../../api/UserRequest'
 import User from '../User/User'
 import './FollowersCard.css'
@@ -23,7 +24,12 @@ const FollowersCard = () => {
 
       {persons.map((person, id) => {
         if (person._id !== user._id) {
-          return <User person={person} key={id} />
+          // console.log(person);
+          return (
+            <Link className='link' to={`/home/profile/${person._id}`} >
+              <User person={person} key={id} />
+            </ Link>
+          )
         }
       })}
 
