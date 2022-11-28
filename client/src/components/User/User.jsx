@@ -27,7 +27,7 @@ const User = ({ person }) => {
         <h4>{person.firstname} {person.lastname}</h4>
         <h5>@{person.username}</h5>
       </div>
-      <button className='button follow-btn' onClick={handleFollow}>
+      <button className={following ? 'button-out follow-btn' :'button follow-btn'} onClick={handleFollow}>
         {following ? "Unfollow" : "Follow"}
       </button>
     </div>

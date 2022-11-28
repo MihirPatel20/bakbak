@@ -2,7 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+
 import Discover from './components/Discover/Discover';
+import EditProfile from './components/editProfile/EditProfile';
 import Friends from './components/Friends/Friends';
 import NewPostColumn from './components/newPostColumn/NewPostColumn';
 import Posts from './components/posts/Posts';
@@ -27,6 +29,7 @@ function App() {
           <Route path='profile/:id' element={user ? <ProfileColumn /> : <Navigate to="../auth" />} />
           <Route path='discover' element={user ? <Discover /> : <Navigate to="../auth" />} />
           <Route path='friends' element={user ? <Friends /> : <Navigate to="../auth" />} />
+          <Route path='profile/:id/edit' element={user ? <EditProfile data={user} /> : <Navigate to="../auth" />} />
         </Route>
       </Routes>
     </div>

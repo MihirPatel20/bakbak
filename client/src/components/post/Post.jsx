@@ -17,7 +17,7 @@ const Post = ({ data }) => {
 
   const dispatch = useDispatch();
 
-  const postOwner = data.userId;
+  const postOwnerId = data.userId;
 
   //Formating the date to desired output
   var createdTime = FormatDate(new Date(data.createdAt));
@@ -29,16 +29,20 @@ const Post = ({ data }) => {
   }
 
   const fetchPerson = async () => {
-    if (postOwner) {
-      const { data } = await getUser(postOwner);
+    if(postOwnerId === user._id){
+      setPerson(user)
+    }
+    else {
+      const {data} = await getUser(postOwnerId);
       setPerson(data)
     }
   }
 
   useEffect(() => {
     fetchPerson();
-  }, [])
+  }, [user])
 
+  // console.log(person);
 
 
   if (person) {
