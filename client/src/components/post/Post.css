@@ -8,6 +8,9 @@
   padding: 16px 20px;
 }
 
+.info > h4 {
+  font-weight: 500;
+}
 .info > h5 {
   color: var(--dark-labels);
 }

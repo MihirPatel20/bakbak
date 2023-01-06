@@ -34,11 +34,11 @@ export const getPost = async (req, res) => {
 //Update a Post
 export const updatePost = async (req, res) => {
   const postId = req.params.id;
-  const { currentUserId } = req.body;
+  const { userId } = req.body;
 
   try {
     const post = await PostModel.findById(postId);
-    if (currentUserId === post.userId) {
+    if (userId === post.userId) {
       await post?.updateOne({ $set: req.body })
       res.status(200).json("Post Updated Succesfully");
     }
@@ -55,12 +55,12 @@ export const updatePost = async (req, res) => {
 //Delete a Post
 export const deletePost = async (req, res) => {
   const postId = req.params.id;
-  const { currentUserId } = req.body;
+  const { userId } = req.body;
 
   try {
 
     const post = await PostModel.findById(postId);
-    if (currentUserId === post?.userId) {
+    if (userId === post?.userId) {
       await post?.deleteOne();
       res.status(200).json("Post Successfully deleted.")
     }
@@ -78,17 +78,17 @@ export const deletePost = async (req, res) => {
 //Like a Post
 export const likePost = async (req, res) => {
   const postId = req.params.id;
-  const { currentUserId } = req.body;
+  const { userId } = req.body;
 
   try {
     const post = await PostModel.findById(postId)
 
-    if (!post?.likes.includes(currentUserId)) {
-      await post?.updateOne({ $push: { likes: currentUserId } })
+    if (!post?.likes.includes(userId)) {
+      await post?.updateOne({ $push: { likes: userId } })
       res.status(200).json("You Liked a Post")
     }
     else {
-      await post?.updateOne({ $pull: { likes: currentUserId } })
+      await post?.updateOne({ $pull: { likes: userId } })
       res.status(200).json("You Unliked a Post")
     }
 
@@ -101,14 +101,14 @@ export const likePost = async (req, res) => {
 
 //Get Timeline Posts
 export const getTimelinePosts = async (req, res) => {
-  const currentUserId = req.params.id;
+  const userId = req.params.id;
 
   try {
-    const userPosts = await PostModel.find({ userId: currentUserId })
+    const userPosts = await PostModel.find({ userId: userId })
     const followingPosts = await UserModel.aggregate([
       {
         $match: {
-          _id: new mongoose.Types.ObjectId(currentUserId)
+          _id: new mongoose.Types.ObjectId(userId)
         }
       },
       {

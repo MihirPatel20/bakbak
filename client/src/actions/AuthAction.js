@@ -28,3 +28,8 @@ export const signUp = (formData) => async(dispatch) => {
   }
 }
 
+//Log Out
+export const logOut = () => async(dispatch) => {
+  dispatch({type: "LOG_OUT"})
+}
+

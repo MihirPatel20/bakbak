@@ -1,18 +1,20 @@
-import { UilImagePlus, UilTimes } from '@iconscout/react-unicons';
+import { UilTimes } from '@iconscout/react-unicons';
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadImage, uploadPost } from '../../actions/uploadAction';
 import avatarImage from '../../images/profile-photos/toy-6.jpg';
 import ImageVector from '../../images/svg/image-video-vector-2.svg';
 import './NewPostColumn.css';
 
 const NewPostColumn = () => {
   const {user} = useSelector((state)=>state.authReducer.authData)
+  const loading = useSelector((state) => state.postReducer.uploading)
   const [image, setImage] = useState(null);
   const desc = useRef();
+  const dispatch = useDispatch();
   
 
   const onImageChange = (event) => {
-    console.log(event.target.files);
 
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
@@ -35,8 +37,22 @@ const NewPostColumn = () => {
       data.append("file", image)
       newPost.image = filename;
 
-      console.log(newPost);
+      try {
+        dispatch(uploadImage(data));
+      } catch (error) {
+        console.log(error);
+      }
+      
     }
+
+    dispatch(uploadPost(newPost))
+
+    reset()
+  }
+
+  const reset = () => {
+    setImage(null);
+    desc.current.value = "";
   }
 
 
@@ -53,9 +69,9 @@ const NewPostColumn = () => {
           <div className="share-section flex">
             <img className='profile-picture' src={avatarImage} alt="" />
             <input ref={desc} required type="text" placeholder="What's on your mind!" name="desc" id="" />
-            <div className="image-logo">
-              <UilImagePlus onClick={handleSubmit} />
-            </div>
+            <button className="button share-btn" onClick={handleSubmit}>
+              {loading ? "Uploading..." : "Share"}
+            </button>
           </div>
         </div>
 
